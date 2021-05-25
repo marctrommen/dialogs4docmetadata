@@ -33,10 +33,10 @@ OK             | 0                | value
 Yes            | 0                | -
 No             | 1                | -
 Cancel         | 1                | -
-<Ctrl> + C     | 1                | -
+`<Ctrl>` + C   | 1                | -
 Help           | 2                | HELP value
 Extra          | 3                | value
-<ESC>          | 255              | -
+`<ESC>`        | 255              | -
 
 
 ```

@@ -28,7 +28,7 @@ First attempt to use Bash Dialog for user interaction. Guides user collecting me
 ## Exit-Codes
 
 Button / Taste | Exit-Code (`$?`) | RETURN-Value
-------------------------------------------------
+-------------- | ---------------- | ------------
 OK             | 0                | value
 Yes            | 0                | -
 No             | 1                | -

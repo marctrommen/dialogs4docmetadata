@@ -79,13 +79,13 @@ function reset_metadata {
 	# SET Archive Base Directory
 	# --------------------------------------------
 	# alternative 1: directory of this script
-	SCAN_ARCHIVE_BASE_DIRECTORY="${SCAN_SCRIPT_BASE_DIRECTORY}"
+	#SCAN_ARCHIVE_BASE_DIRECTORY="${SCAN_SCRIPT_BASE_DIRECTORY}"
 
 	# alternative 2: external USB HDD
 	#SCAN_ARCHIVE_BASE_DIRECTORY="/media/marco/marco/DocArchive"
 
 	# alternative 3: 16 GB USB Stick intenso
-	#SCAN_ARCHIVE_BASE_DIRECTORY="/media/marco/DOC_ARCHIVE/docarchive"
+	SCAN_ARCHIVE_BASE_DIRECTORY="/media/marco/DOC_ARCHIVE/docarchive"
 	
 	# you need to define full qualified path to font file!
 	SCAN_PDF_FONT="/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf"

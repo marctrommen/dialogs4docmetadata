@@ -49,7 +49,7 @@ function load_buildlist {
 # -------------------------------
 # FUNCTIION select_keywords ()
 # let the user choose a set of keywords from a list to chracterize the 
-# document
+# document. Affects the variable SCAN_DOCUMENT_KEYWORDS.
 # INPUT 
 #     $1 ... label: textlabel of dialog
 # RETURN:
@@ -58,7 +58,7 @@ function load_buildlist {
 # -------------------------------
 function select_keywords {
 	# Generate the dialog box
-	ANSWER=$( \
+	local ANSWER=$( \
 		$DIALOG \
 		--backtitle "${BACKTITEL}" \
 		--title "${TITEL}" \
@@ -75,6 +75,7 @@ function select_keywords {
 
 	# Handle exit status
 	if [ ${DIALOG_EXIT_STATUS} -eq $BUTTON_OK ]; then
+		SCAN_DOCUMENT_KEYWORDS="${ANSWER}"
 		return 0
 	fi
 	
@@ -158,13 +159,12 @@ done
 
 clear
 if [ $return -eq $BUTTON_OK ] ; then
-	echo "Gewählte Schlüsselwörter: $ANSWER"
-	SCAN_DOCUMENT_KEYWORDS="$ANSWER"
+	echo "Gewählte Schlüsselwörter: ${SCAN_DOCUMENT_KEYWORDS}"
 	write_config
 	exit 0
-else
-	echo "Abbruch durch Benutzer!"
-	SCAN_DOCUMENT_KEYWORDS=""
-	write_config
-	exit 1
 fi
+
+echo "Abbruch durch Benutzer!"
+SCAN_DOCUMENT_KEYWORDS=""
+write_config
+exit 1

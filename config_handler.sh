@@ -31,6 +31,7 @@ function write_config {
 # unless beeing sourced
 
 DIALOG=/usr/bin/dialog
+export DIALOGRC=${SCAN_SCRIPT_BASE_DIRECTORY}/dialogrc
 
 BUTTON_OK=0
 BUTTON_YES=0
@@ -73,7 +74,8 @@ EOF
 #     none
 # -------------------------------
 function reset_metadata {
-	SCAN_SCRIPT_BASE_DIRECTORY="$(dirname $(realpath $0))"
+	SCAN_SCRIPT_BASE_DIRECTORY=$(dirname $(realpath $0))
+	export DIALOGRC="${SCAN_SCRIPT_BASE_DIRECTORY}/dialogrc"
 
 	# --------------------------------------------
 	# SET Archive Base Directory
@@ -85,7 +87,7 @@ function reset_metadata {
 	#SCAN_ARCHIVE_BASE_DIRECTORY="/media/marco/marco/DocArchive"
 
 	# alternative 3: 16 GB USB Stick intenso
-	SCAN_ARCHIVE_BASE_DIRECTORY="/media/marco/DOC_ARCHIVE/docarchive"
+    SCAN_ARCHIVE_BASE_DIRECTORY="/media/marco/DOC_ARCHIVE/docarchive"
 	
 	# you need to define full qualified path to font file!
 	SCAN_PDF_FONT="/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf"
@@ -98,3 +100,9 @@ function reset_metadata {
 	SCAN_DOCUMENT_FILE=""
 	SCAN_DOCUMENT_STORAGE_LOCATION=""
 }
+
+if [ -z $1 ]; then
+    echo "=== create config file and initialize variables with default values  ==="
+    reset_metadata
+    write_config
+fi

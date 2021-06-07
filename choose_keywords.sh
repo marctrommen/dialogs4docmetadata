@@ -27,7 +27,7 @@ function load_buildlist {
 	
 	while read -r item; do
 		# ignore empty lines
-		if [ "${item}" = "" ]; then continue; fi
+		if [ -z "${item}" ]; then continue; fi
 		
 		# ignore lines starting with '#' for coments
 		if [ $( expr index "${item}" "#" ) -eq 1 ]; then continue; fi
@@ -35,7 +35,7 @@ function load_buildlist {
 		# replace any SPACE, DOT, DASH characters to UNDERSCORE
 		item=$( echo -n "${item}" | tr \  \_ | tr \- \_ | tr \. \_)
 		
-		if [ "${BUILDLIST_ITEMS}" = "" ]; then
+		if [ -z "${BUILDLIST_ITEMS}" ]; then
 			BUILDLIST_ITEMS="${item} ${item} off"
 		else
 			BUILDLIST_ITEMS="${BUILDLIST_ITEMS} ${item} ${item} off"
@@ -79,6 +79,7 @@ function select_keywords {
 		return 0
 	fi
 	
+	SCAN_DOCUMENT_KEYWORDS=""
 	return 1
 }
 
@@ -112,7 +113,7 @@ function ask_for_redo {
 ready=1
 
 # fill BUILDLIST_ITEMS from file
-load_buildlist "./keywords.txt"
+load_buildlist "${SCAN_SCRIPT_BASE_DIRECTORY}/keywords.txt"
 return=$?
 
 if [ $return -eq $BUTTON_OK ] ; then
@@ -127,7 +128,7 @@ while [ $ready = 1 ] ; do
 	return=$?
 	
 	if [ $return -eq $BUTTON_OK ] ; then
-		if [ -z ${ANSWER} ] ; then
+		if [ -z "${SCAN_DOCUMENT_KEYWORDS}" ] ; then
 			ask_for_redo "Deine Auswahl ist leer!!\n\nAuswahl wiederholen?"
 			
 			return=$?
@@ -140,7 +141,7 @@ while [ $ready = 1 ] ; do
 				$return=$KEY_ESC
 			fi
 		else
-			ask_for_redo "Deine Auswahl:\n\n$ANSWER\n\nokay?"
+			ask_for_redo "Deine Auswahl:\n\n${SCAN_DOCUMENT_KEYWORDS}\n\nokay?"
 		
 			return=$?
 		

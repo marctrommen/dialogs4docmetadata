@@ -39,16 +39,14 @@ function get_search_pattern {
 	DIALOG_EXIT_STATUS=$?
 
 	# Handle exit status
-	case ${DIALOG_EXIT_STATUS} in
-	$BUTTON_OK)
+	if [ ${DIALOG_EXIT_STATUS} -eq $BUTTON_OK ]; then
 		# Handle dialog output
 		SEARCH_PATTERN="$ANSWER"
 		return 0
-		;;
-	$KEY_ESC)
-		return 1
-		;;
-	esac
+	fi
+	
+	SEARCH_PATTERN=""
+	return 1
 }
 
 
@@ -102,7 +100,7 @@ function search_results {
 function set_document_title {
 	local ANSWER=""
 	
-	while [ "${ANSWER}" = "" ]; do
+	while [ -z "${ANSWER}" ]; do
 		# Generate the dialog box
 		ANSWER=$( \
 			$DIALOG \
